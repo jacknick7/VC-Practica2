@@ -1,3 +1,3 @@
 # VC: Pràctica 2
 2a pràctica d'VC, Flors, pel Q2 2018-2019.
-![Image](flors.jpg)
+![Image](flor.jpg)
