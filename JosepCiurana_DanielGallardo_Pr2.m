@@ -1,0 +1,1 @@
+%% Pràctica 2, Reconeixemet automàtic de flors
