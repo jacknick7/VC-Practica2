@@ -19,13 +19,19 @@ countEachLabel(imds)
 [trainSet, testSet] = splitEachLabel(imds, 0.7, 'randomize');
 
 %% Extract Training Features
-nFeatures = 1;
+nFeatures = 6;
 [nTrain, ~] = size(trainSet.Labels);
 trainFeatures = zeros(nFeatures, nTrain);
 %Color Mean
 for i = 1:nTrain
-    tmp = readimage(imds,i);
-    trainFeatures(1,i) = mean(tmp(:))/255;
+    %trainSet.Files{i}
+    [m,sd] = colorFeature(trainSet.Files{i});
+    trainFeatures(1,i) = m(1,1);
+    trainFeatures(2,i) = m(1,2);
+    trainFeatures(3,i) = m(1,3);
+    trainFeatures(4,i) = sd(1,1);
+    trainFeatures(5,i) = sd(1,2);
+    trainFeatures(6,i) = sd(1,3);
 end
 
 %% Train A Multiclass SVM Classifier Using Flower Features
@@ -39,13 +45,17 @@ classifier = fitcecoc(trainFeatures, trainLabels, ...
     'Learners', 'Linear', 'Coding', 'onevsall', 'ObservationsIn', 'columns');
 
 %% Evaluate Classifier
-nFeatures = 1;
 [nTest, ~] = size(testSet.Labels);
 testFeatures = zeros(nFeatures, nTest);
 %Color Mean
 for i = 1:nTest
-    tmp = readimage(imds,i);
-    testFeatures(1,i) = mean(tmp(:))/255;
+    [m,sd] = colorFeature(testSet.Files{i});
+    testFeatures(1,i) = m(1,1);
+    testFeatures(2,i) = m(1,2);
+    testFeatures(3,i) = m(1,3);
+    testFeatures(4,i) = sd(1,1);
+    testFeatures(5,i) = sd(1,2);
+    testFeatures(6,i) = sd(1,3);
 end
 
 % Pass image features to trained classifier
