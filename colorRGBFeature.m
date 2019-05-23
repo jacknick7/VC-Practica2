@@ -1,7 +1,5 @@
-function [m,sd] = colorFeature(path)
-    pathCont = [path(1:end-3) 'png'];
-    im = double(imread(path));
-    imCont = imread(pathCont);
+function [m,sd] = colorRGBFeature(im, imCont)
+    im = double(im);
     imCont = imCont == 1;
     r = im(:,:,1);
     g = im(:,:,2);
