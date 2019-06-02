@@ -1,3 +1,5 @@
+close all, clear variables
+
 %% Check Image Data Folder Exists
 imageFolder = '../SegmentadesBasic';
 if ~exist(imageFolder,'dir')
@@ -17,16 +19,16 @@ imageDB = countEachLabel(imds)
 % countEachLabel(imds)
 
 %% Prepare Training and Test Image Sets
-[trainSet, testSet] = splitEachLabel(imds, 0.7, 'randomize');
-disp('Train/test random split with ratio 7:3');
+[trainSet, testSet] = splitEachLabel(imds, 0.8, 'randomize');
+disp('Train/test random split with ratio 4:1');
 trainDB = countEachLabel(trainSet)
 testDB = countEachLabel(testSet)
 
 %% Extract Training Features
-nFeatures = 13;
+nFeatures = 8;
 [nTrain, ~] = size(trainSet.Labels);
 disp('Extracting train features...');
-trainFeatures = createFeatureMat(nFeatures, nTrain, trainSet);
+trainFeatures = createFeatureMat(nFeatures, nTrain, trainSet, false);
 disp('Done!');
 
 %% Train A Multiclass SVM Classifier Using Flower Features
@@ -44,7 +46,7 @@ disp('Done!');
 %% Evaluate Classifier
 [nTest, ~] = size(testSet.Labels);
 disp('Extracting test features...');
-testFeatures = createFeatureMat(nFeatures,nTest,testSet);
+testFeatures = createFeatureMat(nFeatures, nTest, testSet, false);
 disp('Done!');
 
 % Pass image features to trained classifier
@@ -65,4 +67,29 @@ array2table(confMat,'RowNames',labels,'VariableNames',labels)
 
 % Display the mean accuracy
 accuracy = mean(diag(confMat))
+
+% Mean 5 iterations code:
+% 55,4 RGB mean, RGB sd, HSV mean + sd, compactness bad
+% 53,2 RGB mean, RGB sd
+% 58,4 RGB mean, RGB sd, compactness
+% 65,6 RGB mean, RGB sd, compactness, #corners
+
+%% Classify our own images
+path = input('Please, specify image path: ','s');
+while ~exist(path, 'file') 
+    path = input('Wrong path. Please, specify image path: ','s');
+end
+
+disp('Extracting image features...');
+imFeatures = createFeatureMat(nFeatures,1,path,true);
+disp('Done!');
+
+predictedLabel = predict(classifier, imFeatures, 'ObservationsIn', 'columns');
+
+im = imread(path);
+ImageName = strsplit(path, {'\','/'});
+ImageName = string(ImageName{end});
+PredictedClass = string(predictedLabel(1,1));
+table(ImageName,PredictedClass)
+figure, imshow(im), title("Predicted class: " + PredictedClass)
 
