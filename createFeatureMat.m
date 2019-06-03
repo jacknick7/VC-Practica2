@@ -30,6 +30,8 @@ function featuresMat = createFeatureMat(n,m,ims,single)
         featuresMat(8,i) = nCor;
         H = HOG(imI);
         featuresMat(9:89,i) = H;
+        %s = sift(imI,3,5,1.3);
+        %featuresMat(90, i) = s';
     end
 end
 
