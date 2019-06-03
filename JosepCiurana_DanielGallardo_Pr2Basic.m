@@ -24,11 +24,17 @@ disp('Train/test random split with ratio 4:1');
 trainDB = countEachLabel(trainSet)
 testDB = countEachLabel(testSet)
 
-%% Extract Training Features
+%% Extract Image Features
 nFeatures = 8;
+
 [nTrain, ~] = size(trainSet.Labels);
 disp('Extracting train features...');
 trainFeatures = createFeatureMat(nFeatures, nTrain, trainSet, false);
+disp('Done!');
+
+[nTest, ~] = size(testSet.Labels);
+disp('Extracting test features...');
+testFeatures = createFeatureMat(nFeatures, nTest, testSet, false);
 disp('Done!');
 
 %% Train A Multiclass SVM Classifier Using Flower Features
@@ -44,11 +50,6 @@ classifier = fitcecoc(trainFeatures, trainLabels, ...
 disp('Done!');
 
 %% Evaluate Classifier
-[nTest, ~] = size(testSet.Labels);
-disp('Extracting test features...');
-testFeatures = createFeatureMat(nFeatures, nTest, testSet, false);
-disp('Done!');
-
 % Pass image features to trained classifier
 predictedLabels = predict(classifier, testFeatures, 'ObservationsIn', 'columns');
 
