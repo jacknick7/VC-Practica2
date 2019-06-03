@@ -25,7 +25,7 @@ trainDB = countEachLabel(trainSet)
 testDB = countEachLabel(testSet)
 
 %% Extract Image Features
-nFeatures = 8;
+nFeatures = 89;
 
 [nTrain, ~] = size(trainSet.Labels);
 disp('Extracting train features...');

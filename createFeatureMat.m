@@ -8,6 +8,7 @@ function featuresMat = createFeatureMat(n,m,ims,single)
     % Feature #3: Relation borderline/area, may help when color is not
     %             enought (testing needed) Compacitat
     % Feature #4: Corner detection, with Harris Number of petals
+    % Feature #5: Histogram of Orientated Gradients
     for i = 1:m
         if single
             path = ims;
@@ -27,6 +28,8 @@ function featuresMat = createFeatureMat(n,m,ims,single)
         featuresMat(7,i) = comp;
         nCor = cornerFeature(imI, imContI);
         featuresMat(8,i) = nCor;
+        H = HOG(imI);
+        featuresMat(9:89,i) = H;
     end
 end
 
