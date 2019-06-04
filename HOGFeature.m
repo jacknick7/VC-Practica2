@@ -3,7 +3,7 @@
 %Classifier-Fusion Schemes: An Application To Pedestrian Detection,' In: 12th International IEEE 
 %Conference On Intelligent Transportation Systems, 2009, St. Louis, 2009. V. 1. P. 432-437. In 
 %case of publication with this code, please cite the paper above.
-function H=HOG(Im)
+function H=HOGFeature(Im)
 nwin_x=3;%set here the number of HOG windows per bound box
 nwin_y=3;
 B=9;%set here the number of histogram bins

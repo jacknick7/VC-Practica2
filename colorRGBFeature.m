@@ -4,6 +4,7 @@ function [m,sd] = colorRGBFeature(im, imCont)
     r = im(:,:,1);
     g = im(:,:,2);
     b = im(:,:,3);
+    % NORMALITZAR ILUMINACIÓ?
     m_r = mean(r(imCont));
     m_g = mean(g(imCont));
     m_b = mean(b(imCont));

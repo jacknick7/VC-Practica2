@@ -1,4 +1,4 @@
-function Descriptors = SIFT(inputImage, Octaves, Scales, Sigma)
+function Descriptors = SIFTFeature(inputImage, Octaves, Scales, Sigma)
 % This function is to extract sift features from a given image
     
     % Setting Variables.

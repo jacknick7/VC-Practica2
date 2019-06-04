@@ -74,6 +74,7 @@ accuracy = mean(diag(confMat))
 % 53,2 RGB mean, RGB sd
 % 58,4 RGB mean, RGB sd, compactness
 % 65,6 RGB mean, RGB sd, compactness, #corners
+% 72,2 RGB mean, RGB sd, compactness, #corners, HOG
 
 %% Classify our own images
 path = input('Please, specify image path: ','s');

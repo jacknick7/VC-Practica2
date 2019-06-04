@@ -28,9 +28,10 @@ function featuresMat = createFeatureMat(n,m,ims,single)
         featuresMat(7,i) = comp;
         nCor = cornerFeature(imI, imContI);
         featuresMat(8,i) = nCor;
-        H = HOG(imI);
+        H = HOGFeature(imI);
         featuresMat(9:89,i) = H;
-        %s = sift(imI,3,5,1.3);
+        %s = SIFTFeature(imI,3,5,1.3);
+        %s = cell2mat(s);
         %featuresMat(90, i) = s';
     end
 end
