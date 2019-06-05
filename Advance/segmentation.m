@@ -5,7 +5,7 @@ function segmentada = segmentation(inputImage)
     sd_v = std(v(:));
     t_v = m_v + sd_v;
     im_tmp =  v > t_v;
-    segmentacio = activecontour(image,im_tmp);
+    segmentacio = activecontour(im,im_tmp);
     ee = strel('disk', 5);
     segmentada = imclose(segmentacio, ee);
 end

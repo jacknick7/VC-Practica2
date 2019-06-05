@@ -1,7 +1,8 @@
 close all, clear variables
+addpath('../Features/');
 
 %% Check Image Data Folder Exists
-imageFolder = '../SegmentadesBasic';
+imageFolder = '../../SegmentadesBasic';
 if ~exist(imageFolder,'dir')
     disp('Image folder not found, please change imageFolder var');
 end
@@ -25,7 +26,7 @@ trainDB = countEachLabel(trainSet)
 testDB = countEachLabel(testSet)
 
 %% Extract Image Features
-nFeatures = 90;
+nFeatures = 89;
 
 [nTrain, ~] = size(trainSet.Labels);
 disp('Extracting train features...');

@@ -1,13 +1,13 @@
 function featuresMat = createFeatureMat(n,m,ims,single)
     featuresMat = zeros(n, m);
-    % Feature #1: Color mean of segmented flower (RGB now, upgrade to HSV),
+    % Feature #1: Color mean of segmented flower (RGB),
     %             good for a lot of flowers but not so good for ones with
     %             a similar color or diferent inside the same class
-    % Feature #2: Color standard desviation (RGB now, upgrade to HSV), up
+    % Feature #2: Color standard desviation (RGB), up
     %             to 20% more accuracy with mean
     % Feature #3: Relation borderline/area, may help when color is not
-    %             enought (testing needed) Compacitat
-    % Feature #4: Corner detection, with Harris Number of petals
+    %             enought, compacitat
+    % Feature #4: Corner detection, with Harris, number of petals
     % Feature #5: Histogram of Orientated Gradients
     for i = 1:m
         if single
