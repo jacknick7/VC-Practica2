@@ -15,6 +15,7 @@ function featuresMat = createFeatureMat(n,m,ims,single)
         else
             path = ims.Files{i};
         end
+        disp(path)
         imI = imread(path);
         imContI = segmentation(imI);
         [m,sd] = colorRGBFeature(imI, imContI);
@@ -27,7 +28,8 @@ function featuresMat = createFeatureMat(n,m,ims,single)
         featuresMat(7,i) = comp;
         nCor = cornerFeature(imI, imContI);
         featuresMat(8,i) = nCor;
-        H = HOGFeature(imI);
+        maskedRgbImage = bsxfun(@times, imI, cast(imContI, 'like', imI));
+        H = HOGFeature(imresize(rgb2gray(maskedRgbImage), [32 32]));
         featuresMat(9:89,i) = H;
         %s = SIFTFeature(imI,3,5,1.3);
         %s = cell2mat(s);
