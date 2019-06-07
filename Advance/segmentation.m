@@ -6,6 +6,9 @@ function segmentada = segmentation(inputImage)
     t_v = m_v + sd_v;
     im_tmp =  v > t_v;
     segmentacio = activecontour(im,im_tmp);
+    ee = strel('disk', 17);
+    segmentada = imopen(segmentacio, ee);
     ee = strel('disk', 5);
-    segmentada = imclose(segmentacio, ee);
+    segmentada = imclose(segmentada, ee);
+    
 end
