@@ -28,6 +28,7 @@ else
     disp('Done!');
 
     maxAcc = 0;
+    %Acc = [];
     for iter = 1:15
         %% Prepare Training and Test Image Sets
         [trainSet, testSet] = splitEachLabel(imds, 0.8, 'randomize');
@@ -36,8 +37,6 @@ else
         testDB = countEachLabel(testSet)
 
         %% Build Features Matrix
-        nFeatures = 89;
-
         [nTrain, ~] = size(trainSet.Labels);
         disp('Choosing train images...');
         trainFeatures = zeros(nFeatures, nTrain);
@@ -92,6 +91,8 @@ else
             maxAcc = accuracy;
             bestRelClass = classifier;
         end
+        
+        %Acc = [Acc accuracy];
         % Mean 5 iterations code:
         % 55,4 RGB mean, RGB sd, HSV mean + sd, compactness bad
         % 53,2 RGB mean, RGB sd
@@ -99,6 +100,8 @@ else
         % 65,6 RGB mean, RGB sd, compactness, #corners
         % 72,2 RGB mean, RGB sd, compactness, #corners, HOG
     end
+    %mean(Acc)
+    %std(Acc)
     maxAcc
     save bestRelClass
     save maxAcc

@@ -21,9 +21,6 @@ function featuresMat = createFeatureMat(n,m,ims,single)
         [m,sd] = colorRGBFeature(imI, imContI);
         featuresMat(1:3,i) = m;
         featuresMat(4:6,i) = sd;
-%         [m,sd] = colorHSVFeature(imI, imContI);
-%         featuresMat(7:9,i) = m;
-%         featuresMat(10:12,i) = sd;
         comp = compactnessFeature(imContI);
         featuresMat(7,i) = comp;
         nCor = cornerFeature(imI, imContI);
@@ -32,8 +29,6 @@ function featuresMat = createFeatureMat(n,m,ims,single)
         maskedRgbImage = bsxfun(@times, imI, cast(iIntI, 'like', imI));
         H = HOGFeature(imresize(rgb2gray(maskedRgbImage), [32 32]));
         featuresMat(9:89,i) = H;
-        %s = SIFTFeature(imI,3,5,1.3);
-        %s = cell2mat(s);
     end
 end
 
